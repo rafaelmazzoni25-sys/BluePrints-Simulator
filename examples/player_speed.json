@@ -1,0 +1,57 @@
+{
+  "name": "PlayerSpeedControl",
+  "description": "Simula ajustes de velocidade do personagem",
+  "entry_point": "BeginPlay",
+  "variables": {
+    "Speed": 600,
+    "Acceleration": 150,
+    "MaxSpeed": 1200
+  },
+  "nodes": [
+    {
+      "id": "BeginPlay",
+      "type": "Event",
+      "next": "ComputeInitialSpeed"
+    },
+    {
+      "id": "ComputeInitialSpeed",
+      "type": "Compute",
+      "store_as": "Speed",
+      "expression": {
+        "op": "add",
+        "inputs": [
+          {"var": "Speed"},
+          {"var": "Acceleration"}
+        ]
+      },
+      "next": "SpeedBranch"
+    },
+    {
+      "id": "SpeedBranch",
+      "type": "Branch",
+      "condition": {
+        "op": ">",
+        "inputs": [
+          {"var": "Speed"},
+          {"var": "MaxSpeed"}
+        ]
+      },
+      "true_next": "ClampSpeed",
+      "false_next": "PrintSpeed"
+    },
+    {
+      "id": "ClampSpeed",
+      "type": "SetVariable",
+      "target": "Speed",
+      "value": {"var": "MaxSpeed"},
+      "next": "PrintSpeed"
+    },
+    {
+      "id": "PrintSpeed",
+      "type": "PrintString",
+      "value": {
+        "format": "Velocidade final: {Speed}"
+      }
+    }
+  ]
+}
