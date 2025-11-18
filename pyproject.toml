@@ -1,0 +1,6 @@
+[project]
+name = "blueprint-simulator"
+version = "0.1.0"
+description = "Simulador simples de Blueprints em Python"
+authors = [{ name = "AutoDev" }]
+requires-python = ">=3.11"
